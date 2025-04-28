@@ -1,0 +1,51 @@
+# --- Entornos virtuales de Python ---
+venv/
+env/
+ENV/
+.venv/
+.env/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# --- Archivos de configuración y cache ---
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.sqlite3
+
+# --- Carpetas de VS Code ---
+.vscode/
+
+# --- Sistema operativo ---
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# --- GitHub workflows caches (por si usas acciones que crean cache) ---
+.github/workflows/*.log
+.github/workflows/*.tmp
+
+# --- Otros comunes ---
+*.bak
+*.swp
+*.swo
+.idea/
+*.iml
+
+# --- Entornos específicos ---
+# (Agrega aquí si luego usas por ejemplo Jupyter, Django, Flask, etc.)
