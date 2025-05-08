@@ -41,7 +41,235 @@ Dada una cadena de caracteres, se debe encontrar la subsecuencia más larga que 
 - **Voraz:** explora pares extremos y toma decisiones locales (menos preciso, pero rápido).
 
 ---
+## 🧠 **Problema 1: Búsqueda de Palíndromos** - Métodos de Fuerza Bruta, Programación Dinámica y Manacher
 
+Este conjunto de funciones se encarga de **normalizar** una cadena de texto y luego encontrar todas las **subcadenas palindrómicas más largas** utilizando tres enfoques diferentes: **fuerza bruta**, **programación dinámica** y **algoritmo de Manacher**.
+
+## 📜 Función: `normalizar_cadena`
+
+La función `normalizar_cadena` tiene como objetivo transformar la cadena de texto de entrada en un formato **uniforme** que permita trabajar de manera eficiente con las subcadenas palindrómicas. 
+
+### 📌 Pasos realizados:
+
+1. **Eliminar acentos**: Utiliza `unicodedata.normalize('NFD', cadena)` para descomponer los caracteres y eliminar los signos diacríticos (acentos). La función `unicodedata.category(c) != 'Mn'` filtra los caracteres que corresponden a acentos y otros signos de modificación.
+  
+2. **Filtrado de caracteres no alfanuméricos**: La función `re.findall(r'[a-zA-Z0-9]', cadena)` utiliza una expresión regular para seleccionar solo los caracteres alfanuméricos (`a-z`, `A-Z`, `0-9`), ignorando otros como espacios, puntuaciones, etc.
+
+3. **Conversión a minúsculas**: Después de realizar los filtros, la cadena se convierte a minúsculas con `.lower()` para normalizar aún más la entrada y hacer que la comparación de subcadenas no sea sensible al caso.
+
+### 🎯 Resultado:
+
+La cadena final está limpia de acentos, espacios y caracteres no alfanuméricos, permitiendo que la búsqueda de palíndromos sea más sencilla y precisa.
+
+
+### 🔍 Función: `encontrar_palindromos`
+
+La función `encontrar_palindromos` toma una cadena **normalizada** y devuelve un **diccionario** con los resultados de las tres técnicas para encontrar las subcadenas palindrómicas más largas.
+
+### 📌 Pasos realizados:
+
+1. **Método de Fuerza Bruta**: Llama a `subsecuencia_palindromica_bruta(s)`, que emplea un enfoque iterativo para encontrar todas las subcadenas palindrómicas más largas sin duplicados. Este método es sencillo pero menos eficiente para cadenas largas.
+
+2. **Método de Programación Dinámica**: Llama a `subsecuencia_palindromica_dinamica(s)`, que utiliza una matriz de programación dinámica para identificar palíndromos de manera más eficiente, almacenando resultados parciales y evitando cálculos repetidos.
+
+3. **Método de Manacher (Voraz)**: Llama a `subsecuencia_palindromica_voraz(s)`, que implementa el algoritmo de Manacher para encontrar palíndromos de forma aún más eficiente, en tiempo lineal O(n).
+
+### 🎯 Resultado:
+
+La función retorna un **diccionario** con las subcadenas palindrómicas más largas para cada uno de los tres métodos de búsqueda:
+
+- **"bruta"**: Resultado del método de fuerza bruta.
+- **"dinámica"**: Resultado del método de programación dinámica.
+- **"voraz"**: Resultado del método de Manacher.
+---
+
+## 🧠 Fuerza Bruta: Subcadenas Palindrómicas Más Largas
+
+### 📌 Descripción
+
+Esta función resuelve el problema de encontrar todas las **subcadenas palindrómicas más largas** dentro de una cadena dada utilizando un enfoque de **fuerza bruta**. El algoritmo busca exhaustivamente todas las posibles subcadenas, identifica las que son palíndromos, y conserva únicamente las más largas, sin duplicados.
+
+### 🔹 Explicación de la función `subsecuencia_palindromica_bruta`
+
+Esta función implementa una estrategia de **fuerza bruta** para encontrar todas las **subcadenas palindrómicas más largas** de una cadena de texto.
+
+
+### 🔹 Inicialización
+
+- Se calcula la longitud de la cadena con `len(s)`.
+- Se inicializa una variable `max_length` para llevar el registro de la longitud del palíndromo más largo encontrado.
+- Se crea un conjunto (`set`) llamado `palindromos` para guardar los resultados sin duplicados.
+
+
+### 🔁 Generación de subcadenas
+
+La función usa **dos bucles anidados** para recorrer todas las posibles subcadenas de la cadena:
+
+- El índice `i` marca el inicio de la subcadena.
+- El índice `j` marca el final de la subcadena.
+
+Esto genera aproximadamente `n(n+1)/2` subcadenas posibles, lo que implica una **complejidad O(n²)** en esta etapa.
+
+### 🔍 Verificación de palíndromos
+
+Cada subcadena generada se compara con su reverso para verificar si es un palíndromo:
+
+- Esta comparación toma **O(k)** tiempo, donde `k` es la longitud de la subcadena.
+- En el peor caso, `k` puede ser hasta `n`, por lo que esta verificación tiene **O(n)** de complejidad.
+
+
+### 🏆 Almacenamiento de los mejores resultados
+
+- Si se encuentra un nuevo palíndromo más largo, se actualiza `max_length` y se reinicia el conjunto de resultados.
+- Si tiene la misma longitud que el actual máximo, se agrega al conjunto.
+
+El uso de un **set** garantiza que no haya palíndromos repetidos.
+
+
+### 📤 Resultado final
+
+La función convierte el conjunto de palíndromos en una lista ordenada alfabéticamente antes de retornarla. Esto mejora la presentación del resultado final.
+
+
+### 📊 Complejidad computacional
+
+| Etapa                          | Complejidad |
+|-------------------------------|-------------|
+| Generación de subcadenas      | O(n²)       |
+| Verificación de palíndromo    | O(n)        |
+| **Complejidad total**         | **O(n³)**   |
+
+
+Esta implementación es muy sencilla de entender y garantiza encontrar todas las posibles soluciones óptimas, aunque no es eficiente para cadenas muy largas debido a su naturaleza cúbica.
+
+---
+## 🧠  Programación Dinámica: : Subcadenas Palindrómicas Más Largas
+
+Esta función utiliza **programación dinámica** para encontrar todas las **subcadenas palindrómicas más largas** de una cadena. Es más eficiente que la versión por fuerza bruta, ya que evita repetir cálculos innecesarios.
+
+
+### 🔹 Explicación de la lógica
+
+### 🔹 Inicialización
+
+- Se calcula la longitud de la cadena de entrada.
+- Se devuelve una lista vacía si la cadena está vacía.
+- Se define una **matriz booleana `dp`** de `n x n` para registrar si una subcadena `s[i:j+1]` es palindrómica.
+- Se inicializa:
+  - `max_length` en 1 (cada carácter por sí solo es un palíndromo),
+  - un `set` para guardar los palíndromos más largos sin duplicados.
+
+
+### ✅ Casos base
+
+Cada carácter individual (`s[i]`) es un palíndromo de longitud 1. Por eso:
+
+- Se marca `dp[i][i] = True`.
+- Se agrega cada letra individual al conjunto de resultados.
+
+
+### 🔁 Evaluación por longitud creciente
+
+La función evalúa todas las subcadenas de longitud 2 hasta `n`:
+
+- Para cada par de índices `i` y `j` se verifica si `s[i] == s[j]`.
+- Si la subcadena intermedia también es palindrómica (`dp[i+1][j-1]`), se marca `dp[i][j] = True`.
+
+Este enfoque evita reanalizar las subcadenas internas gracias al uso de la tabla `dp`.
+
+
+### 🏆 Registro de resultados
+
+- Si se encuentra un palíndromo más largo que los anteriores, se actualiza `max_length` y se reinicia el conjunto con esa nueva subcadena.
+- Si tiene la misma longitud que el máximo actual, simplemente se añade.
+
+
+### 📤 Resultado final
+
+Antes de devolver el resultado:
+
+- Se convierte el `set` a una lista.
+- Se ordena la lista por la posición original de aparición en la cadena (`s.index(x)`), para mejorar la legibilidad del resultado.
+
+
+## 📊 Complejidad computacional
+
+| Etapa                             | Complejidad |
+|----------------------------------|-------------|
+| Construcción de la matriz `dp`   | O(n²)       |
+| Verificación y llenado de `dp`   | O(n²)       |
+| **Complejidad total**            | **O(n²)**   |
+
+
+Esta solución es **más eficiente** que la versión por fuerza bruta (O(n³)) y muy útil para analizar cadenas largas sin incurrir en alto costo computacional.
+
+
+---
+### 🧠 Programación voraz: Subcadenas Palindrómicas Más Largas
+
+Esta función utiliza el **algoritmo de Manacher** para encontrar todas las **subcadenas palindrómicas más largas** de manera eficiente. Este algoritmo optimiza la búsqueda de palíndromos al reducir significativamente el número de comparaciones necesarias, alcanzando una complejidad de O(n).
+
+
+### 🔹 Explicación de la lógica
+
+### 🔹 Preprocesamiento de la cadena
+
+Para manejar correctamente los palíndromos de longitud par, la función realiza un **preprocesamiento** de la cadena original:
+
+- Se inserta el carácter `#` entre cada carácter de la cadena original y en los extremos. Este paso garantiza que todos los palíndromos tengan una longitud impar y simplifica la expansión desde un único centro.
+
+Por ejemplo, para la cadena `"aba"`, se convierte en `"#a#b#a#"`, lo que permite manejar palíndromos de longitud par de forma uniforme.
+
+
+### ✅ Inicialización de variables
+
+- **`p[i]`**: Guarda el **radio de expansión** (la mitad de la longitud) de un palíndromo centrado en el índice `i`.
+- **`c`**: El **centro** del palíndromo más grande encontrado hasta el momento.
+- **`r`**: El **radio derecho** del palíndromo más grande encontrado hasta el momento.
+
+
+### 🔁 Expansión de palíndromos
+
+El algoritmo itera sobre cada índice de la cadena modificada:
+
+1. Para cada `i`, se calcula su **posición espejo** `mirror` respecto al centro `c`.
+2. Si el índice `i` se encuentra dentro del **radio derecho** (`r`), se utiliza el valor de expansión de su **espejo** para inicializar el valor de `p[i]`.
+3. Luego, se expande alrededor de `i`, comparando los caracteres a la izquierda y derecha de la cadena modificada, hasta que ya no se pueda expandir más.
+
+
+### 🏆 Actualización de los valores de `c` y `r`
+
+Si la expansión del palíndromo centrado en `i` supera el radio derecho actual (`r`):
+
+- Se actualiza el centro `c` y el radio derecho `r` al nuevo valor calculado.
+
+
+### 📤 Determinación del resultado
+
+Después de realizar las expansiones:
+
+- Se encuentra el **tamaño máximo** de los palíndromos usando el array `p`.
+- Se generan los palíndromos correspondientes al radio máximo.
+- Se eliminan los caracteres `#` añadidos durante el preprocesamiento.
+
+
+### 🧑‍💻 Resultado final
+
+El conjunto de palíndromos encontrados es ordenado por su **posición original** en la cadena y se devuelve como una lista.
+
+
+## 📊 Complejidad computacional
+
+| Etapa                             | Complejidad |
+|----------------------------------|-------------|
+| Preprocesamiento de la cadena    | O(n)        |
+| Expansión de palíndromos         | O(n)        |
+| **Complejidad total**            | **O(n)**    |
+
+
+Esta solución es **más eficiente** que las implementaciones anteriores, alcanzando una complejidad de **O(n)** gracias a la optimización del algoritmo de Manacher.
+
+---
 ## 🔹 Problema 2: Planeación de la Fiesta de la Compañía
 
 ### 🧠 Enunciado
