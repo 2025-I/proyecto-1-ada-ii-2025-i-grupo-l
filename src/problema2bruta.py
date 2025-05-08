@@ -38,8 +38,7 @@ def fiestaFuerzaBruta(matriz, convivencias):
 
     return binario_invitados,mejor_convivencia
 
-
-# ---- EJEMPLO CON TUS DATOS ----
+"""
 n = 6
 matriz = [
     [0, 1, 0, 0, 0,0],
@@ -51,5 +50,6 @@ matriz = [
 ]
 convivencias = [12, 18, 5, 10, 8,7]
 
-print("Fuerza Bruta:", fiestaFuerzaBruta(matriz, convivencias))
 
+print("Fuerza Bruta:", fiestaFuerzaBruta(matriz, convivencias))
+"""

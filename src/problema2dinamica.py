@@ -72,30 +72,7 @@ def fiesta_programacion_dinamica(matriz, convivencias):
         seleccion = exc_sel
         total = total_exc
 
-    print("Puntaje total de convivencias:", total)
+    
     return  seleccion,total
 
 
-# ---- EJEMPLO CON TUS DATOS ----
-n = 6
-matriz = [
-    [0, 1, 0, 0, 0,0],
-    [0, 0, 1, 1, 0,0],
-    [0, 0, 0, 0, 0,1],
-    [0, 0, 0, 0, 1,0],
-    [0, 0, 0, 0, 0,0],
-    [0, 0, 0, 0, 0,0]
-]
-convivencias = [12, 18, 5, 10, 8,7]
-
-n = 5
-matriz2 = [
-    [0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 1],
-    [0, 0, 0, 0, 0],
-]
-convivencias2 = [10, 30, 15, 5, 8]
-
-print("Programacion Dinamica:", fiesta_programacion_dinamica(matriz2, convivencias2))
