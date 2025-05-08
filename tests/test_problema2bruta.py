@@ -45,5 +45,5 @@ def test_bruta_caso_manual_2():
     assert puntaje == esperado_puntaje
     assert binario in binarios_validos
 
-
+   
 
