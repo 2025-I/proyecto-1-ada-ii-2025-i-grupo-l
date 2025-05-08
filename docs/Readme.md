@@ -43,6 +43,9 @@ Dada una cadena de caracteres, se debe encontrar la subsecuencia más larga que 
 ---
 ## 🧠 **Problema 1: Búsqueda de Palíndromos** - Métodos de Fuerza Bruta, Programación Dinámica y Manacher
 
+![normalizar](./imagenes/normalizarpalindromos1.png)
+
+
 Este conjunto de funciones se encarga de **normalizar** una cadena de texto y luego encontrar todas las **subcadenas palindrómicas más largas** utilizando tres enfoques diferentes: **fuerza bruta**, **programación dinámica** y **algoritmo de Manacher**.
 
 ## 📜 Función: `normalizar_cadena`
@@ -84,6 +87,8 @@ La función retorna un **diccionario** con las subcadenas palindrómicas más la
 ---
 
 ## 🧠 Fuerza Bruta: Subcadenas Palindrómicas Más Largas
+
+![funcion_bruta](./imagenes/funcionbruta1.png)
 
 ### 📌 Descripción
 
@@ -144,6 +149,8 @@ Esta implementación es muy sencilla de entender y garantiza encontrar todas las
 
 ---
 ## 🧠  Programación Dinámica: : Subcadenas Palindrómicas Más Largas
+
+![funcion_dinamica](./imagenes/funciondinamica1.png)
 
 Esta función utiliza **programación dinámica** para encontrar todas las **subcadenas palindrómicas más largas** de una cadena. Es más eficiente que la versión por fuerza bruta, ya que evita repetir cálculos innecesarios.
 
@@ -207,6 +214,8 @@ Esta solución es **más eficiente** que la versión por fuerza bruta (O(n³)) y
 ---
 ### 🧠 Programación voraz: Subcadenas Palindrómicas Más Largas
 
+![funcion_voraz](./imagenes/funcionvoraz1.png)
+
 Esta función utiliza el **algoritmo de Manacher** para encontrar todas las **subcadenas palindrómicas más largas** de manera eficiente. Este algoritmo optimiza la búsqueda de palíndromos al reducir significativamente el número de comparaciones necesarias, alcanzando una complejidad de O(n).
 
 
@@ -268,6 +277,59 @@ El conjunto de palíndromos encontrados es ordenado por su **posición original*
 
 
 Esta solución es **más eficiente** que las implementaciones anteriores, alcanzando una complejidad de **O(n)** gracias a la optimización del algoritmo de Manacher.
+
+---
+
+### 📈 Análisis de tiempos de ejecución para cadenas de 20x20 ( fuerza bruta )
+
+![tiempo_fuerza_bruta](./imagenes/Fuerzabruta1tiempo.png)
+
+![tiempo_fuerza_bruta](./imagenes/bruta1grafico.png)
+
+---
+### 📈 Análisis de tiempos de ejecución para cadenas de 1000x1000 ( Programación dinamica y voraz )
+
+![tiempo_dinamico_voraz](./imagenes/vorazdinamico1tiempo.png)
+
+![tiempo_dinamico_voraz](./imagenes/vorazdinamico1grafico.png)
+
+---
+#### 🧠 Interpretación tiempos y graficos problema 1
+
+## 1 Fuerza Bruta (20x20)
+
+El algoritmo de fuerza bruta busca soluciones explorando todas las posibles combinaciones sin estrategias de optimización. Para un tamaño de prueba **20x20**, el comportamiento esperado es el siguiente:
+
+- **Tiempo de ejecución:** Se incrementa cuadráticamente con el tamaño de la entrada, siguiendo una complejidad de `O(n²)`.
+- **Comparación con la teoría:** Los resultados experimentales reflejan una tendencia similar a la esperada teóricamente, aunque con pequeñas fluctuaciones debido a condiciones del entorno de ejecución.
+- **Observaciones:** Dado el tamaño relativamente pequeño de la prueba, el impacto en el rendimiento aún es manejable, pero con valores más altos la penalización crecería significativamente.
+
+
+## 2️ Dinámica y Voraz (1000x1000)
+
+Para un tamaño más grande de prueba **1000x1000**, la comparación entre los algoritmos **dinámico** y **voraz** es importante:
+
+## 🔹 Dinámica
+
+- **Tiempo de ejecución:** Se observa un incremento, pero su eficiencia es notable comparada con Fuerza Bruta.
+- **Ventaja:** La estrategia de almacenamiento de subproblemas evita cálculos redundantes y mejora el rendimiento.
+- **Tendencia teórica:** Se ajusta a una complejidad menor que la de fuerza bruta, acercándose a `O(n log n)` o mejor.
+- **Resultados experimentales:** Son consistentes con la predicción, aunque factores como memoria y procesamiento pueden afectar ligeramente la velocidad real.
+
+## 🔹 Voraz
+
+- **Enfoque:** Toma decisiones locales con la esperanza de obtener un resultado global óptimo.
+- **Tiempo de ejecución:** Es mucho más rápido en ejecución comparado con los otros métodos.
+- **Tendencia teórica:** Su complejidad suele estar en `O(n)` o cerca de ello.
+- **Resultados experimentales:** Demuestran una eficiencia superior en muchos casos, aunque puede no siempre alcanzar la solución óptima que la programación dinámica garantiza.
+
+
+## ✅ Conclusiónes
+
+- **Fuerza Bruta** es viable para casos pequeños, pero su escalabilidad es limitada.
+- **Dinámica** equilibra optimización con precisión y es más eficiente para problemas grandes.
+- **Voraz** es extremadamente rápido, pero puede perder calidad en ciertos casos.
+- **Comparación de desempeño:** La programación dinámica es más confiable en precisión, mientras que el método voraz ofrece velocidad.
 
 ---
 ## 🔹 Problema 2: Planeación de la Fiesta de la Compañía
